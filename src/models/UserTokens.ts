@@ -1,4 +1,3 @@
-import { type } from 'os';
 import {
   Column,
   CreateDateColumn,
@@ -18,10 +17,11 @@ export class UserTokens {
   @Column({ type: 'uuid', generated: 'uuid' })
   token: string;
 
-  @OneToOne(() => User, {
+  /*@OneToOne(() => User, {
     cascade: true,
   })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'user_id' })*/
+  @Column()
   user_id: string;
 
   @CreateDateColumn({ type: 'timestamp', default: 'now()' })

@@ -1,7 +1,8 @@
 import AppError from '../errors/AppError';
 import { userTokenRepository } from '../repositories/UserTokenRepository';
 import { userRepository } from '../repositories/UserRepository';
-import { UserTokens } from '../models/UserTokens';
+import EtherealMail from '../config/mail/EtherealMail';
+import { User } from '../models/User';
 
 export class SendForgotPasswordEmailService {
   public async generate(email: string): Promise<void> {
@@ -11,13 +12,23 @@ export class SendForgotPasswordEmailService {
       throw new AppError('User does not exists.');
     }
 
-    const userToken = await userTokenRepository.create({
-      user_id: user.id,
-    });
+    const userToken = userTokenRepository.create({ user_id: user.id });
 
     await userTokenRepository.save(userToken);
-    console.log(userToken);
+
+    await EtherealMail.sendMail({
+      to: {
+        name: user.name,
+        email: user.email,
+      },
+      subject: '[API vendas] Recuperação de senha',
+      templateData: {
+        template: `Olá {{name}}: {{token}}`,
+        variables: {
+          name: user.name,
+          token: userToken.token,
+        },
+      },
+    });
   }
 }
-
-//user_id: string

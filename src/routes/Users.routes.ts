@@ -4,6 +4,7 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import multer from 'multer';
 import uploadConfig from '../config/upload';
 import UserAvatarController from '../controller/UserAvatarController';
+import Authenticate from '../middlewares/Authenticated';
 
 const usersRoutes = Router();
 const usersController = new UserController();
@@ -25,6 +26,7 @@ usersRoutes.post(
 
 usersRoutes.get('/', usersController.listUser);
 
+usersRoutes.use(Authenticate);
 usersRoutes.patch(
   '/avatar',
   upload.single('avatar'),
