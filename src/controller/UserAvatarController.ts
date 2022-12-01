@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { UpdateUserAvatarService } from '../services/UpdateUserAvatarService';
 
-export default class UserController {
+export default class UserAvatarController {
   public async updateAvatar(req: Request, res: Response): Promise<Response> {
     const updateAvatar = new UpdateUserAvatarService();
 

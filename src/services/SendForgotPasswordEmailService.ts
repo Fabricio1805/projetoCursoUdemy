@@ -2,8 +2,7 @@ import AppError from '../errors/AppError';
 import { userTokenRepository } from '../repositories/UserTokenRepository';
 import { userRepository } from '../repositories/UserRepository';
 import EtherealMail from '../config/mail/EtherealMail';
-import { User } from '../models/User';
-
+import path from 'path';
 export class SendForgotPasswordEmailService {
   public async generate(email: string): Promise<void> {
     const user = await userRepository.findOneBy({ email });
@@ -16,6 +15,14 @@ export class SendForgotPasswordEmailService {
 
     await userTokenRepository.save(userToken);
 
+    const forgotPasswordTemplate = path.resolve(
+      __dirname,
+      '..',
+      'views',
+      'forgot_password.hbs',
+    );
+    console.log(forgotPasswordTemplate);
+
     await EtherealMail.sendMail({
       to: {
         name: user.name,
@@ -23,10 +30,10 @@ export class SendForgotPasswordEmailService {
       },
       subject: '[API vendas] Recuperação de senha',
       templateData: {
-        template: `Olá {{name}}: {{token}}`,
+        file: forgotPasswordTemplate,
         variables: {
           name: user.name,
-          token: userToken.token,
+          link: `http://localhost:3000/reset_password?token=${userToken.token}`,
         },
       },
     });

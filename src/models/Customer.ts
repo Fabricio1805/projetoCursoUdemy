@@ -6,19 +6,16 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('products')
-export class Product {
+@Entity('customers')
+export class Customer {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar' })
   name: string;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
-  price: number;
-
-  @Column({ type: 'int' })
-  quantity: number;
+  @Column({ type: 'varchar' })
+  email: string;
 
   @CreateDateColumn({ type: 'timestamp', default: 'now()' })
   createdAt: Date;

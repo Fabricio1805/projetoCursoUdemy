@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import ProductsController from '../controller/ProductsController';
 import { celebrate, Joi, Segments } from 'celebrate';
+import Authenticate from '../middlewares/Authenticated';
 
 const productsRouter = Router();
 const productsController = new ProductsController();
 
+productsRouter.use(Authenticate);
 productsRouter.get('/', productsController.listProducts);
 
 productsRouter.get(

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { CreateUserService } from '../services/CreateUserService';
 import { ListUserService } from '../services/ListUserService';
 
-export default class UserAvatarController {
+export default class UsersController {
   public async createUser(req: Request, res: Response): Promise<Response> {
     const { name, email, password } = req.body;
 
