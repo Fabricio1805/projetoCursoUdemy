@@ -5,7 +5,7 @@ import { ListProductService } from '../services/ListProductService';
 import { ShowProductService } from '../services/ShowProductService';
 import { UpdateProductService } from '../services/UpdateProductService';
 
-export default class {
+export default class ProductController {
   public async createProduct(req: Request, res: Response): Promise<Response> {
     const { name, price, quantity } = req.body;
 

@@ -1,5 +1,4 @@
 import {
-  Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
@@ -7,22 +6,16 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Order } from './Order';
+import { Customer } from './Customer';
 
-@Entity('customers')
-export class Customer {
+@Entity('orders')
+export class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar' })
-  name: string;
-
-  @Column({ type: 'varchar' })
-  email: string;
-
-  @ManyToOne(() => Order)
-  @JoinColumn({ name: 'order_id' })
-  order: Order;
+  @ManyToOne(() => Customer)
+  @JoinColumn({ name: 'customer_id' })
+  customer: Customer;
 
   @CreateDateColumn({ type: 'timestamp', default: 'now()' })
   createdAt: Date;
