@@ -31,6 +31,6 @@ AppDataSource.initialize().then(() => {
   });
   const port = process.env.PORT || 4000;
   app.listen(port, () => {
-    console.log('RODANDO <3');
+    console.log(`RODANDO NA PORTA ${port}`);
   });
 });

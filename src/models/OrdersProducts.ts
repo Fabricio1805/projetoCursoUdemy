@@ -8,9 +8,10 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Order } from './Order';
+import { Product } from './Product';
 
-@Entity('orders')
-export class OrdersProducts {
+@Entity('orders_products')
+export default class OrdersProducts {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -20,9 +21,19 @@ export class OrdersProducts {
   @Column({ type: 'int' })
   quantity: number;
 
-  @ManyToOne(() => Order)
+  @ManyToOne(() => Order, order => order.order_products)
+  @JoinColumn({ name: 'order_id' })
+  order: Order;
+
+  @ManyToOne(() => Product, product => product.order_products)
   @JoinColumn({ name: 'product_id' })
   product: Product;
+
+  @Column()
+  order_id: string;
+
+  @Column()
+  product_id: string;
 
   @CreateDateColumn({ type: 'timestamp', default: 'now()' })
   createdAt: Date;
