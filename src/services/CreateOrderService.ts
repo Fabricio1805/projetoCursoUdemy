@@ -1,6 +1,5 @@
 import { In } from 'typeorm';
 import AppError from '../errors/AppError';
-import { Customer } from '../models/Customer';
 import { Order } from '../models/Order';
 import { CustomersRepository } from '../repositories/CustomersRepository';
 import { OrdersRepository } from '../repositories/OrdersRepository';
