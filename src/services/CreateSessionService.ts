@@ -33,8 +33,6 @@ export class CreateSessionService {
       expiresIn: authConfig.jwt.expiresIn,
     });
 
-    //const { password: _, ...userLogin } = user;
-
     return {
       user,
       token,

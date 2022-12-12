@@ -1,12 +1,11 @@
 import 'reflect-metadata';
-import express, { NextFunction, Request, Response } from 'express';
+import express from 'express';
 import 'express-async-errors';
 import cors from 'cors';
-import { errors } from 'celebrate';
 import routes from './routes/routes';
-import AppError from './errors/AppError';
 import { AppDataSource } from './data-source';
 import uploadConfig from './config/upload';
+import Errors from './middlewares/Errors';
 
 AppDataSource.initialize().then(() => {
   const app = express();
@@ -14,21 +13,12 @@ AppDataSource.initialize().then(() => {
   app.use(cors());
   app.use(express.json());
   app.use('/files', express.static(uploadConfig.directory));
-  app.use(routes);
-  app.use(errors());
 
-  app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-    if (error instanceof AppError) {
-      return res.status(error.statusCode).json({
-        status: 'error',
-        message: error.message,
-      });
-    }
-    return res.status(500).json({
-      status: 'error',
-      message: 'Internal server error',
-    });
-  });
+  app.use(routes);
+
+  app.use(Errors);
+
+  app.use(Errors);
   const port = process.env.PORT || 4000;
   app.listen(port, () => {
     console.log(`RODANDO NA PORTA ${port}`);

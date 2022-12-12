@@ -5,6 +5,8 @@ import multer from 'multer';
 import uploadConfig from '../config/upload';
 import UserAvatarController from '../controller/UserAvatarController';
 import Authenticate from '../middlewares/Authenticated';
+import { validate } from 'src/middlewares/handleValidation';
+import userCreateValidation from 'src/middlewares/userValidations';
 
 const usersRoutes = Router();
 const usersController = new UserController();
@@ -14,13 +16,15 @@ const upload = multer(uploadConfig);
 
 usersRoutes.post(
   '/',
-  celebrate({
+  /*celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
       email: Joi.string().email().required(),
       password: Joi.string().required(),
     },
-  }),
+  }),*/
+  userCreateValidation(),
+  validate,
   usersController.createUser,
 );
 
