@@ -17,8 +17,6 @@ AppDataSource.initialize().then(() => {
   app.use(routes);
 
   app.use(Errors);
-
-  app.use(Errors);
   const port = process.env.PORT || 4000;
   app.listen(port, () => {
     console.log(`RODANDO NA PORTA ${port}`);

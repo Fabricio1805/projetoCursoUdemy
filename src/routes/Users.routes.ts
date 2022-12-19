@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import UserController from '../controller/UserController';
-import { celebrate, Joi, Segments } from 'celebrate';
 import multer from 'multer';
 import uploadConfig from '../config/upload';
 import UserAvatarController from '../controller/UserAvatarController';

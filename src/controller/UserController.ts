@@ -14,14 +14,14 @@ export default class UsersController {
       password,
     });
 
-    return res.status(200).json(user);
+    const { password: _, ...newUser } = user;
+    return res.status(200).json(newUser);
   }
 
   public async listUser(req: Request, res: Response): Promise<Response> {
     const listUser = new ListUserService();
 
     const users = await listUser.execute();
-
     return res.json(users);
   }
 }

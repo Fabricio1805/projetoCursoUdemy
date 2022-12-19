@@ -23,7 +23,7 @@ export default class ProductController {
     const listProducts = new ListProductService();
 
     const products = await listProducts.execute();
-    console.log(req.user);
+
     return res.json(products);
   }
 
